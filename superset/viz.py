@@ -1273,6 +1273,8 @@ class NVD3TimeSeriesViz(NVD3Viz):
     viz_type = "line"
     verbose_name = _("Time Series - Line Chart")
     sort_series = False
+    sort_legend = False
+    remove_legend_index = False
     is_timeseries = True
     pivot_fill_value: Optional[int] = None
 
@@ -1462,6 +1464,21 @@ class NVD3TimeSeriesViz(NVD3Viz):
 
         if not self.sort_series:
             chart_data = sorted(chart_data, key=lambda x: tuple(x["key"]))
+        # DATA CATALOG
+        if self.sort_legend:
+            # Forced to sort by key
+            chart_data = sorted(chart_data, key=lambda x: tuple(x["key"]))
+        if self.remove_legend_index:
+            new_chart_data = list()
+            for v in chart_data:
+                if 'key' in v:
+                    old_key = v["key"]
+                    if isinstance(old_key, tuple) and len(old_key) == 1:
+                        # Removed number index
+                        new_key = re.sub("\d+- ", "", old_key[0])
+                        new_chart_data.append(
+                            {"key": (new_key,), "values": v["values"]})
+            chart_data = new_chart_data
         return chart_data
 
 
@@ -1575,6 +1592,8 @@ class NVD3TimeSeriesBarViz(NVD3TimeSeriesViz):
 
     viz_type = "bar"
     sort_series = True
+    sort_legend = True
+    remove_legend_index = True
     verbose_name = _("Time Series - Bar Chart")
 
 
