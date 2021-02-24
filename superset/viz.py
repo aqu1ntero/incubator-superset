@@ -1478,7 +1478,8 @@ class NVD3TimeSeriesViz(NVD3Viz):
                         new_key = re.sub("\d+- ", "", old_key[0])
                         new_chart_data.append(
                             {"key": (new_key,), "values": v["values"]})
-            chart_data = new_chart_data
+            if len(new_chart_data) > 0:
+                chart_data = new_chart_data
         return chart_data
 
 
