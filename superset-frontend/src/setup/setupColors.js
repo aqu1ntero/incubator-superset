@@ -22,6 +22,7 @@ import echarts from '@superset-ui/core/esm/color/colorSchemes/categorical/echart
 import google from '@superset-ui/core/esm/color/colorSchemes/categorical/google';
 import lyft from '@superset-ui/core/esm/color/colorSchemes/categorical/lyft';
 import preset from '@superset-ui/core/esm/color/colorSchemes/categorical/preset';
+import agesic from '../utils/colorCategoricalAgesic';
 import sequentialCommon from '@superset-ui/core/esm/color/colorSchemes/sequential/common';
 import sequentialD3 from '@superset-ui/core/esm/color/colorSchemes/sequential/d3';
 import {
@@ -33,7 +34,7 @@ import superset from '@superset-ui/core/esm/color/colorSchemes/categorical/super
 export default function setupColors() {
   // Register color schemes
   const categoricalSchemeRegistry = getCategoricalSchemeRegistry();
-  [superset, airbnb, categoricalD3, echarts, google, lyft, preset].forEach(
+  [superset, airbnb, categoricalD3, echarts, google, lyft, preset, agesic].forEach(
     group => {
       group.forEach(scheme => {
         categoricalSchemeRegistry.registerValue(scheme.id, scheme);
